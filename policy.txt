@@ -1,0 +1,15 @@
+Privacy Policy for TRBLS
+Effective Date:03/10/2025
+
+1. Information We Collect
+This extension does not collect, store, or transmit any personal data from users.
+The extension may automatically send error reports to the developer to help debug issues.
+No other information is collected, stored, or shared.
+Permissions requested by the extension are used solely to enable its core functionality (searching Plex content). No information is shared with third parties.
+
+
+2. How We Use Information
+Error reports are used solely for debugging and improving the extension.
+No information is shared with third parties.
+No data is used for advertising, tracking, or analytics.
+
