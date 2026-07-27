@@ -73,23 +73,15 @@
 
         
         window.onload = () => {
-            alertAWB("Opening CNC Instructions Extension...", {
-                message: "",
-                showButton: false
-            });
-    
-            setTimeout(() => {
-                window.location.href =
-                    `chrome-extension://${extensionId}/instructions.html${currentParams}`;
-            }, 2000);   // wait 1 second
-        
             const extensionId = "jemdcbobfhegaidaaanachognmhcdcid";
             const currentParams = window.location.search;
-        
-            console.log(`CNC.HTML url='chrome-extension://${extensionId}/instructions.html${currentParams}'`);
-        
-            window.location.href =
-                `chrome-extension://${extensionId}/instructions.html${currentParams}`;
+            
+            alertAWB("Opening CNC Instructions Extension...", {                message: "",                showButton: false            });
+            
+            setTimeout(() => {
+                console.log(`CNC.HTML url='chrome-extension://${extensionId}/instructions.html${currentParams}'`);
+                window.location.href =`chrome-extension://${extensionId}/instructions.html${currentParams}`;
+            }, 1000);   // wait 1 second
         };
         
     </script>
