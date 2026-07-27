@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Opening CNC Extension...</title>
+</head>
+<body>
+  <p>Opening CNC Instructions Extension...</p>
+  <script>
+    const extensionId = "jemdcbobfhegaidaaanachognmhcdcid";
+    const currentParams = window.location.search;
+
+    // Redirect top-level window to Chrome Extension
+    window.location.href = `chrome-extension://${extensionId}/instructions.html${currentParams}`;
+  </script>
+</body>
+</html>
