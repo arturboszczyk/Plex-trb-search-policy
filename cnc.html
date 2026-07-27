@@ -1,17 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Opening CNC Extension...</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opening CNC Extension...</title>
 </head>
 <body>
-  <p>Opening CNC Instructions Extension...</p>
-  <script>
-    const extensionId = "jemdcbobfhegaidaaanachognmhcdcid";
-    const currentParams = window.location.search;
+    <p>Opening CNC Instructions Extension...</p>
 
-    // Redirect top-level window to Chrome Extension
-    console.log(`CNC.HTML url= 'chrome-extension://${extensionId}/instructions.html${currentParams}'`);
-    window.location.href = `chrome-extension://${extensionId}/instructions.html${currentParams}`;
-  </script>
+    <script>
+        const alertAWB = (title, options = {}) => {
+            const {
+                message = "",
+                showButton = true,
+                hideAfter = 0,
+                hidePreviousMessages = false
+            } = options;
+
+            if (hidePreviousMessages) {
+                document.querySelectorAll("#AWB-custom-alert-modal").forEach(m => m.remove());
+            }
+
+            const existingModal = document.getElementById("AWB-custom-alert-modal");
+
+            const modal = document.createElement("div");
+            modal.id = "AWB-custom-alert-modal";
+
+            Object.assign(modal.style, {
+                position: "fixed",
+                top: existingModal ? "60%" : "35%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                background: "#f9f52a",
+                border: "2px solid black",
+                padding: "15px",
+                zIndex: "999999",
+                fontFamily: "sans-serif",
+                minWidth: "220px",
+                boxShadow: "0 4px 15px rgba(0,0,0,0.3)"
+            });
+
+            const isLong = message.length > 200;
+
+            modal.innerHTML = `
+                <h3 style="margin:0 0 10px;text-align:center;">
+                    ${title.replace(/\n/g, "<br>")}
+                </h3>
+
+                <div style="
+                    margin-bottom:15px;
+                    white-space:normal;
+                    user-select:text;
+                    ${isLong ? "max-height:150px;overflow-y:auto;" : ""}
+                ">
+                    ${message.replace(/\n/g, "<br>")}
+                </div>
+
+                ${
+                    showButton
+                        ? `<button class="closeAlert">OK</button>`
+                        : ""
+                }
+            `;
+
+            document.body.appendChild(modal);
+
+            if (showButton) {
+                modal.querySelector(".closeAlert").onclick = () => modal.remove();
+            } else {
+                modal.style.cursor = "pointer";
+                modal.onclick = () => modal.remove();
+            }
+
+            if (hideAfter > 0) {
+                setTimeout(() => modal.remove(), hideAfter);
+            }
+
+            return modal;
+        };
+
+        const extensionId = "jemdcbobfhegaidaaanachognmhcdcid";
+        const currentParams = window.location.search;
+        const url = `chrome-extension://${extensionId}/instructions.html${currentParams}`;
+
+        console.log("Opening:", url);
+
+        // Show message first
+        alertAWB("Opening CNC Extension...", {
+            message: "Please wait while the CNC Instructions extension opens.",
+            showButton: false,
+            hideAfter: 1500
+        });
+
+        // Give the browser time to paint the modal before navigating
+        setTimeout(() => {
+            window.location.href = url;
+        }, 1000);
+    </script>
 </body>
 </html>
