@@ -70,19 +70,31 @@
                 }, hideAfter);
             }
         }//∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
-
         
-        window.onload = () => {
-            const extensionId = "jemdcbobfhegaidaaanachognmhcdcid";
-            const currentParams = window.location.search;
+        
+window.onload = () => {
+        const extensionId = "jemdcbobfhegaidaaanachognmhcdcid"; // Your extension ID
+        const currentParams = window.location.search;
+        
+        // 1. Parse the URL parameters to check where we should go
+        const urlParams = new URLSearchParams(currentParams);
+        const isToolsPage = urlParams.get('page') === 'tools';
+        
+        // 2. Set the destination and loading message based on the parameter
+        const targetHtml = isToolsPage ? "tools.html" : "instructions.html";
+        const loadingMessage = isToolsPage ? "Opening Tool Database..." : "Opening CNC Instructions...";
+
+        alertAWB(loadingMessage, {                
+            message: "",                
+            showButton: false            
+        });
             
-            alertAWB("Opening CNC Instructions Extension...", {                message: "",                showButton: false            });
-            
-            setTimeout(() => {
-                console.log(`CNC.HTML url='chrome-extension://${extensionId}/instructions.html${currentParams}'`);
-                window.location.href =`chrome-extension://${extensionId}/instructions.html${currentParams}`;
-            }, 1000);   // wait 1 second
-        };
+        setTimeout(() => {
+            console.log(`Redirecting to url='chrome-extension://${extensionId}/${targetHtml}${currentParams}'`);
+            window.location.href = `chrome-extension://${extensionId}/${targetHtml}${currentParams}`;
+        }, 1000);   // wait 1 second
+    };
+        
         
     </script>
 </body>
